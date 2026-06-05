@@ -1,10 +1,11 @@
 # Build stage
-FROM maven:3.9.6-eclipse-temurin-21 AS build
-COPY . .
-RUN mvn clean package -DskipTests
+FROM gradle:8.5-jdk21 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build -x test --no-daemon
 
 # Run stage
 FROM eclipse-temurin:21-jdk-jammy
-COPY --from=build /target/*.jar app.jar
+COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
 EXPOSE 8083
 ENTRYPOINT ["java","-jar","/app.jar"]
