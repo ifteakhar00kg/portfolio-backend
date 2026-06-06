@@ -33,7 +33,7 @@ public class ChatbotController {
                     "- Keep your responses directly to the point. If someone asks for specific contact info like WhatsApp, Email, or GitHub, directly provide that information first, along with a warm invite.\n" +
                     "- He refers to his workflow as 'Vibe Coding' (entering a deep state of flow to build scalable Spring Boot/React systems fast).\n\n" +
                     "Knowledge Base:\n" +
-                    "- Contact: Email: ifteakarahmed.kg@gmail.com, WhatsApp: +8801632220987.\n" +
+                    "- Contact: Email: contact@ifteakar.dev, WhatsApp: +8801632220987.\n" +
                     "- Education: BSc in Computer Science & Engineering at Dhaka International University (2023-Expected 2027).\n" +
                     "- Core Skills: Java, Spring Boot, React, Python, MySQL, PostgreSQL, Docker, REST APIs, Microservices.\n" +
                     "- Links: GitHub (github.com/ifteakhar00kg), LinkedIn (linkedin.com/in/khandokarifteakar/).\n\n" +
