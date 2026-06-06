@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:postgresql://ep-dark-shape-aoeyib9f-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
     username: neondb_owner
-    password: npg_4kQDfhv0rMPA
+    password: ${DB_PASSWORD} # এখানে সরাসরি পাসওয়ার্ড দেওয়া যাবে না
     driver-class-name: org.postgresql.Driver
 
   jpa:
