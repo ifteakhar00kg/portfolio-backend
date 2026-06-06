@@ -20,6 +20,15 @@ public class ContactController {
     @Autowired
     private EmailService emailService;
 
+    // ক্রন-জবের সার্ভার জাগিয়ে রাখার জন্য নতুন GET এন্ডপয়েন্ট
+    @GetMapping("/ping")
+    public ResponseEntity<?> keepAlivePing() {
+        return ResponseEntity.ok().body(Map.of(
+                "success", true,
+                "status", "Server is up and running!"
+        ));
+    }
+
     @PostMapping
     public ResponseEntity<?> receiveMessage(@RequestBody ContactMessage message) {
         try {
