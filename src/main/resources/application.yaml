@@ -12,11 +12,6 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-supabase:
-  url: ${SUPABASE_URL}
-  bucket: ${SUPABASE_BUCKET}
-  secret-key: ${SUPABASE_SECRET_KEY}
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -38,6 +33,11 @@ supabase:
           starttls:
             enable: true
 
+supabase:
+  url: ${SUPABASE_URL}
+  bucket: ${SUPABASE_BUCKET}
+  secret-key: ${SUPABASE_SECRET_KEY}
+
 admin:
-  password: ${ADMIN_PASSWORD:123RoNy789@@}
-  token: ${ADMIN_SECRET_TOKEN:ifteakar_super_secret_token_2026}
+  password: ${ADMIN_PASSWORD}
+  token: ${ADMIN_SECRET_TOKEN}
