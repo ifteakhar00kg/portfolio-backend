@@ -3,6 +3,7 @@ package com.ifteakar.portfolio_backend.controller;
 import com.ifteakar.portfolio_backend.model.Project;
 import com.ifteakar.portfolio_backend.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
-    private final String mySecretToken = "ifteakar_super_secret_token_2026";
+    @Value("${admin.token}")
+    private String mySecretToken;
 
     @GetMapping
     public ResponseEntity<List<Project>> getAllProjects() {

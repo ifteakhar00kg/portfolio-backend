@@ -3,6 +3,7 @@ package com.ifteakar.portfolio_backend.controller;
 import com.ifteakar.portfolio_backend.model.CvDocument;
 import com.ifteakar.portfolio_backend.repository.CvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +19,8 @@ public class CvController {
     @Autowired
     private CvRepository cvRepository;
 
-    private final String mySecretToken = "ifteakar_super_secret_token_2026";
+    @Value("${admin.token}")
+    private String mySecretToken;
 
     @GetMapping
     public ResponseEntity<?> getCvStatus() {

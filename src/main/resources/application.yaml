@@ -32,3 +32,7 @@ spring:
           auth: true
           starttls:
             enable: true
+
+admin:
+  password: ${ADMIN_PASSWORD:123RoNy789@@}
+  token: ${ADMIN_SECRET_TOKEN:ifteakar_super_secret_token_2026}
