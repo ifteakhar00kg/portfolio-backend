@@ -91,4 +91,9 @@ public class CvController {
                 )
                 .build();
     }
+
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
 }
