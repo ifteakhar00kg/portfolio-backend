@@ -81,6 +81,43 @@ public class CvController {
         }
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteCv(
+            @RequestHeader(value = "X-Admin-Token", required = false)
+            String adminToken) {
+
+        if (adminToken == null ||
+                !adminToken.equals(mySecretToken)) {
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of(
+                            "success", false,
+                            "message", "Unauthorized"
+                    ));
+        }
+
+        try {
+
+            storageService.deleteCv();
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "success", true,
+                            "message", "CV deleted successfully"
+                    )
+            );
+
+        } catch (Exception e) {
+
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of(
+                            "success", false,
+                            "message", e.getMessage()
+                    ));
+        }
+    }
+
     @GetMapping("/download")
     public ResponseEntity<?> downloadCv() {
 

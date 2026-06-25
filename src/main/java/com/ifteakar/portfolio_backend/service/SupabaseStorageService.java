@@ -57,6 +57,29 @@ public class SupabaseStorageService {
                 fileName;
     }
 
+    public void deleteCv() throws IOException {
+
+        Request request = new Request.Builder()
+                .url(
+                        supabaseUrl +
+                                "/storage/v1/object/" +
+                                bucket +
+                                "/cv.pdf"
+                )
+                .delete()
+                .addHeader("Authorization", "Bearer " + secretKey)
+                .addHeader("apikey", secretKey)
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        if (!response.isSuccessful()) {
+            throw new RuntimeException(
+                    "Delete failed: " + response.body().string()
+            );
+        }
+    }
+
     public String getCvUrl() {
         return supabaseUrl +
                 "/storage/v1/object/public/" +
