@@ -18,6 +18,8 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
+    private final String mySecretToken = "ifteakar_super_secret_token_2026";
+
     @GetMapping
     public ResponseEntity<List<Project>> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
@@ -29,27 +31,52 @@ public class ProjectController {
             @RequestHeader(value = "X-Admin-Token", required = false) String adminToken,
             @RequestBody Project project) {
 
-        // আপনার নিজের একটি সিক্রেট পাসওয়ার্ড বা টোকেন এখানে সেট করুন
-        String mySecretToken = "ifteakar_super_secret_token_2026";
-
         if (adminToken == null || !adminToken.equals(mySecretToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "success", false,
                     "message", "Unauthorized! You are not allowed to add projects."
             ));
         }
-
         try {
             Project savedProject = projectRepository.save(project);
-            return ResponseEntity.ok().body(Map.of(
-                    "success", true,
-                    "message", "Project added successfully!",
-                    "data", savedProject
-            ));
+            return ResponseEntity.ok().body(savedProject);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of(
                     "success", false,
                     "message", "Failed to add project: " + e.getMessage()
+            ));
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProject(
+            @RequestHeader(value = "X-Admin-Token", required = false) String adminToken,
+            @PathVariable Long id,
+            @RequestBody Project projectDetails) {
+
+        if (adminToken == null || !adminToken.equals(mySecretToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "success", false, "message", "Unauthorized!"
+            ));
+        }
+
+        java.util.Optional<Project> projectOptional = projectRepository.findById(id);
+        if (projectOptional.isPresent()) {
+            Project project = projectOptional.get();
+            project.setTitle(projectDetails.getTitle());
+            project.setDescription(projectDetails.getDescription());
+            project.setTechnologies(projectDetails.getTechnologies());
+            project.setGithubLink(projectDetails.getGithubLink());
+            project.setLiveLink(projectDetails.getLiveLink());
+            project.setImageLink(projectDetails.getImageLink());
+            project.setCategory(projectDetails.getCategory());
+            project.setYear(projectDetails.getYear());
+
+            Project updatedProject = projectRepository.save(project);
+            return ResponseEntity.ok().body(updatedProject);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                    "success", false, "message", "Project not found!"
             ));
         }
     }
@@ -59,15 +86,12 @@ public class ProjectController {
             @RequestHeader(value = "X-Admin-Token", required = false) String adminToken,
             @PathVariable Long id) {
 
-        String mySecretToken = "ifteakar_super_secret_token_2026";
-
         if (adminToken == null || !adminToken.equals(mySecretToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "success", false,
                     "message", "Unauthorized!"
             ));
         }
-
         try {
             if (!projectRepository.existsById(id)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
