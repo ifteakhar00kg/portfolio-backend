@@ -9,8 +9,13 @@ spring:
   datasource:
     url: jdbc:postgresql://ep-dark-shape-aoeyib9f-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
     username: neondb_owner
-    password: ${DB_PASSWORD} # এখানে সরাসরি পাসওয়ার্ড দেওয়া যাবে না
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
+supabase:
+  url: ${SUPABASE_URL}
+  bucket: ${SUPABASE_BUCKET}
+  secret-key: ${SUPABASE_SECRET_KEY}
 
   jpa:
     hibernate:
